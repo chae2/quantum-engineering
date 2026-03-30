@@ -1,0 +1,23 @@
+# 시뮬레이터 사용 소스코드 예제 (무료, 무한정)
+from qiskit import QuantumCircuit
+from qiskit_aer import AerSimulator
+
+qc = QuantumCircuit(2)
+qc.h(0)
+qc.z(0)
+qc.x(1)
+qc.h(1)
+qc.measure_all()
+
+backend = AerSimulator()
+job = backend.run(qc, shots=1024)
+result = job.result()   
+
+counts = result.get_counts()
+print("AER counts:", counts)
+
+# 히스토그램 그리기
+from qiskit.visualization import plot_histogram
+
+fig = plot_histogram(counts)
+fig.savefig("qiskit_exer1_histogram.png")
